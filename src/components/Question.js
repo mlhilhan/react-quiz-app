@@ -39,11 +39,11 @@ function Question() {
     }
   };
 
-  const handleOptionChange = (event) => {
+  const handleOptionChange = (event, index) => {
     setSelectedOption(event.target.value);
     const newAnswers = [...userAnswers];
-    newAnswers[currentQuestionIndex] = {
-      questionId: questions[currentQuestionIndex].id,
+    newAnswers[index] = {
+      ...newAnswers[index],
       answer: event.target.value,
     };
     setUserAnswers(newAnswers);
@@ -83,7 +83,7 @@ function Question() {
           id: q.id,
           question: q.title,
           options: options,
-          answer: options[0],
+          answer: options[0], // Default olarak ilk şıkkı doğru cevap kabul ettik.
         };
       });
       setQuestions(parsedQuestions);
@@ -100,6 +100,16 @@ function Question() {
     };
     setUserAnswers(newAnswers);
   }, [currentQuestionIndex]);
+
+  useEffect(() => {
+    const initAnswers = questions.map((question) => ({
+      questionId: question.id,
+      questionTitle: question.title,
+      answer: "",
+      correctAnswer: question.answer,
+    }));
+    setUserAnswers(initAnswers);
+  }, [questions]);
 
   return (
     <div className="question-container">
@@ -129,14 +139,14 @@ function Question() {
             {questions[currentQuestionIndex].question}
           </h2>
           <form>
-            {questions[currentQuestionIndex].options.map((option, index) => (
+            {questions[currentQuestionIndex]?.options?.map((option, index) => (
               <label key={index} className="option-label">
                 <input
                   type="radio"
                   name="option"
                   value={option}
                   checked={selectedOption === option}
-                  onChange={handleOptionChange}
+                  onChange={(e) => handleOptionChange(e, currentQuestionIndex)}
                   disabled={!isClickable}
                 />
                 {`${"ABCD"[index]}. ${option}`}
@@ -163,6 +173,7 @@ function Question() {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={handleCloseModal}
+        shouldCloseOnOverlayClick={false}
         style={{
           content: {
             top: "50%",

@@ -16,13 +16,13 @@ const ResultsTable = ({ answers, questions, onClose }) => {
           {answers.map((answer, index) => (
             <tr key={index}>
               <td>
-                {questions.find((q) => q.id === answer.questionId)?.title ||
-                  "Soru bulunamadı"}
+                {questions.find((q) => q.id === answer.questionId)?.question ||
+                  "Soru Bulunamadı"}
               </td>
               <td>{answer.answer}</td>
               <td>
                 {questions.find((q) => q.id === answer.questionId)?.answer ||
-                  "Doğru cevap bulunamadı"}
+                  "Doğru Cevap Bulunamadı"}
               </td>
             </tr>
           ))}
