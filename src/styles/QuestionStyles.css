@@ -1,0 +1,31 @@
+.question-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.question-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.option-label {
+  display: block;
+  font-size: 18px;
+  padding: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.option-label:hover {
+  background-color: #f0f0f0;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+  cursor: pointer;
+}

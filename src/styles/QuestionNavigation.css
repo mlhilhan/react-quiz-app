@@ -1,0 +1,65 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: color 0.3s;
+}
+
+.nav-button:hover {
+  color: #0056b3;
+}
+
+.nav-button:disabled {
+  color: #cccccc;
+  cursor: not-allowed;
+}
+
+.question-progress {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 15px;
+  color: #333;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+.question-title {
+  text-align: left;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+.submit-button {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
