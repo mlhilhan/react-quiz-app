@@ -29,17 +29,17 @@ function Question() {
   };
 
   const handleTimesUp = () => {
-    console.log("Süre doldu! Sonraki soruya geç.");
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex === questions.length - 1) {
+      console.log("Quiz tamamlandı.");
+      setModalIsOpen(true);
+    } else {
+      console.log("Süre doldu! Sonraki soruya geç.");
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedOption("");
-    } else {
-      console.log("Quiz tamamlandı.");
     }
   };
 
   const handleOptionChange = (event) => {
-    debugger;
     setSelectedOption(event.target.value);
     const newAnswers = [...userAnswers];
     newAnswers[currentQuestionIndex] = {

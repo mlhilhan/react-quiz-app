@@ -1,26 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
-function Timer({ currentQuestionIndex, onTimesUp, onAllowClick }) {
+function Timer({
+  currentQuestionIndex,
+  totalQuestions,
+  onTimesUp,
+  onAllowClick,
+}) {
   const duration = 30;
   const [timeLeft, setTimeLeft] = useState(duration);
+  const prevQuestionIndex = useRef(currentQuestionIndex);
 
   useEffect(() => {
-    setTimeLeft(duration);
-  }, [currentQuestionIndex]);
-
-  useEffect(() => {
-    if (timeLeft === 0) {
-      onTimesUp();
-    } else if (timeLeft === duration - 10) {
-      onAllowClick();
+    if (prevQuestionIndex.current !== currentQuestionIndex) {
+      setTimeLeft(duration);
+      prevQuestionIndex.current = currentQuestionIndex;
     }
 
-    const timerId = setTimeout(() => {
-      setTimeLeft(timeLeft - 1);
+    const timerId = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => {
+        if (prevTimeLeft <= 1) {
+          clearInterval(timerId);
+          onTimesUp(currentQuestionIndex === totalQuestions - 1);
+          return duration;
+        }
+        return prevTimeLeft - 1;
+      });
     }, 1000);
 
-    return () => clearTimeout(timerId);
-  }, [timeLeft, onTimesUp, onAllowClick, duration]);
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [currentQuestionIndex, onTimesUp, totalQuestions, duration]);
+
+  useEffect(() => {
+    if (timeLeft === duration - 10) {
+      onAllowClick();
+    }
+  }, [timeLeft, onAllowClick, duration]);
 
   return <div>Kalan Süre: {timeLeft} saniye</div>;
 }
